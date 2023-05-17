@@ -139,7 +139,11 @@ function rectangularCollision({ rectangle1, rectangle2 }, sprites) {
       rectangle1.position.y + rectangle1.height >= rectangle2.position.y &&
       rectangle1.position.y <= rectangle2.position.y + rectangle2.height
     );
-  }
+}
+
+const battle = {
+  intiated: false,
+}
   
 
 let speed = 3
@@ -156,6 +160,10 @@ function animate() {
     player.draw()
     foreground.draw()
 
+    if (battle.intiated) {
+      return
+    }
+
     if (keys.w.pressed || keys.a.pressed || keys.s.pressed || keys.d.pressed) {
       for (let i = 0; i < battleZones.length; i++) {
         const battleZone = battleZones[i];
@@ -164,8 +172,10 @@ function animate() {
           rectangle1: player, 
           rectangle2: battleZone
           }) && overlappingArea > (player.width * player.height) / 2
+          && Math.random() < 0.01
         ) {
           console.log("battle zone")
+          battle.intiated = true
           break;
         }
       }
