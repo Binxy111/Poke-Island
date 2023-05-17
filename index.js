@@ -6,30 +6,56 @@ canvas.height = 576
 console.log(collisions)
 
 const collisionsMap = []
-
 for (let i = 0; i < collisions.length; i += 70) {
     collisionsMap.push(collisions.slice(i, i + 70))
 }
 
-const boundaries = []
+const battleZonesMap = []
+for (let i = 0; i < battleZonesData.length; i += 70) {
+  battleZonesMap.push(battleZonesData.slice(i, i + 70))
+}   
+
 const offset = {
     x: -785,
     y: -650
 }
 
+const boundaries = []
+
 collisionsMap.forEach((row, i) => {
-    row.forEach((symbol, j) => {
-      if (symbol === 1025)
-        boundaries.push(
-          new Boundary({
-            position: {
-              x: j * Boundary.width + offset.x,
-              y: i * Boundary.height + offset.y
-            }
-          })
-        )
-    })
-  })
+  row.forEach((symbol, j) => {
+    if (symbol === 1025)
+      boundaries.push(
+        new Boundary({
+          position: {
+            x: j * Boundary.width + offset.x,
+            y: i * Boundary.height + offset.y
+          }
+        })
+      )
+    }
+  )
+})
+
+const battleZones = []
+
+battleZonesMap.forEach((row, i) => {
+  row.forEach((symbol, j) => {
+    if (symbol === 1025)
+    battleZones.push(
+        new Boundary({
+          position: {
+            x: j * Boundary.width + offset.x,
+            y: i * Boundary.height + offset.y
+          }
+        })
+      )
+    }
+  )
+})
+
+console.log(battleZones)
+
 
 console.log(collisionsMap)
 
@@ -104,7 +130,7 @@ const foreground = new Sprite({
   image: foregroundImage
 })
 
-const movables = [background, ...boundaries, foreground]
+const movables = [background, ...boundaries, foreground, ...battleZones]
 
 function rectangularCollision({ rectangle1, rectangle2 }, sprites) {
     return (
@@ -124,9 +150,24 @@ function animate() {
     boundaries.forEach((boundary) => {
         boundary.draw()
     })
-
+    battleZones.forEach((battleZone) => {
+      battleZone.draw()
+    })
     player.draw()
     foreground.draw()
+
+    if (keys.w.pressed || keys.a.pressed || keys.s.pressed || keys.d.pressed) {
+      for (let i = 0; i < battleZones.length; i++) {
+        const battleZone = battleZones[i];
+        if (rectangularCollision({
+          rectangle1: player, 
+          rectangle2: battleZone
+        })) {
+          console.log("battle zone")
+          break;
+        }
+      }
+    }
 
     let moving = true
     player.moving = false
@@ -134,22 +175,21 @@ function animate() {
         player.moving = true
         player.image = player.sprites.up
         for (let i = 0; i < movables.length; i++) {
-            const boundary = boundaries[i];
-            if (boundary && rectangularCollision({
-              rectangle1: player, 
-              rectangle2: {
-                ...boundary, 
-                position: {
-                  x: boundary.position.x,
-                  y: boundary.position.y + speed
-                }
+          const boundary = boundaries[i];
+          if (boundary && rectangularCollision({
+            rectangle1: player, 
+            rectangle2: {
+              ...boundary, 
+              position: {
+                x: boundary.position.x,
+                y: boundary.position.y + speed
               }
-            })) {
-              console.log("collision");
-              moving = false
-              break;
             }
+          })) {
+            moving = false
+            break;
           }
+        }
           
         if (moving) {
             movables.forEach(movable => {
@@ -173,7 +213,6 @@ function animate() {
                 }
               }
             })) {
-              console.log("collision");
               moving = false
               break;
             }
@@ -201,7 +240,6 @@ function animate() {
                 }
               }
             })) {
-              console.log("collision");
               moving = false
               break;
             }
@@ -229,7 +267,6 @@ function animate() {
                 }
               }
             })) {
-              console.log("collision");
               moving = false
               break;
             }
