@@ -3,8 +3,52 @@ const context = canvas.getContext('2d')
 canvas.width = 1024
 canvas.height = 576
 
+console.log(collisions)
+
+const collisionsMap = []
+
+for (let i = 0; i < collisions.length; i += 70) {
+    collisionsMap.push(collisions.slice(i, i + 70))
+}
+
+class Boundary {
+    static width = 48
+    static height = 48
+    constructor({position}) {
+        this.position = position
+        this.width = 40
+        this.height = 40
+    }
+
+    draw() {
+        context.fillStyle = 'red'
+        context.fillRect(this.position.x, this.position.y, this.width, this.height)
+    }
+}
+
+const boundaries = []
+const offset = {
+    x: -785,
+    y: -650
+}
+
+collisionsMap.forEach((row, i) => {
+    row.forEach((symbol, j) => {
+      if (symbol === 1025)
+        boundaries.push(
+          new Boundary({
+            position: {
+              x: j * Boundary.width + offset.x,
+              y: i * Boundary.height + offset.y
+            }
+          })
+        )
+    })
+  })
+
+console.log(collisionsMap)
+
 canvas.fillStyle = 'white'
-context.fillRect(0, 0, canvas.width, canvas.height)
 
 const image = new Image()
 image.src = './img/pelletTown.png'
@@ -39,8 +83,8 @@ class Sprite {
 
 const background = new Sprite({
     position: {
-        x: -785,
-        y: -650
+        x: offset.x,
+        y: offset.y
     },
     image: image
 })
@@ -48,6 +92,7 @@ const background = new Sprite({
 function animate() {
     window.requestAnimationFrame(animate)
     background.draw()
+    boundaries.forEach(boundary => boundary.draw())
     context.drawImage(
         playerImage,
         0,
