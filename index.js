@@ -12,9 +12,27 @@ image.src = './img/pelletTown.png'
 const playerImage = new Image()
 playerImage.src = './img/playerDown.png'
 
+class Sprite {
+    constructor({position, velocity, image}) {
+        this.position = position
+        this.image = image
+    }
+    draw() {
+        context.drawImage(this.image, -785, -650)
+    }
+}
 
-image.onload = () => {
-    context.drawImage(image, -785, -650)
+const background = new Sprite({
+    position: {
+        x: -785,
+        y: -650
+    },
+    image: image
+})
+
+function animate() {
+    window.requestAnimationFrame(animate)
+    background.draw()
     context.drawImage(
         playerImage,
         0,
@@ -28,10 +46,7 @@ image.onload = () => {
     )
 }
 
-function animate() {
-    window.requestAnimationFrame(animate)
-    console.log('animate')
-}
+animate()
 
 window.addEventListener('keydown', (event) => {
    switch(event.key) {
