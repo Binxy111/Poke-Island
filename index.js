@@ -1,5 +1,6 @@
 const canvas = document.querySelector('canvas')
 const context = canvas.getContext('2d')
+
 canvas.width = 1024
 canvas.height = 576
 
@@ -176,6 +177,18 @@ function animate() {
         ) {
           console.log("battle zone")
           battle.intiated = true
+          gsap.to('#overlappingDiv', {
+            opacity: 1,
+            repeat: 3,
+            yoyo: true,
+            duration: 0.4,
+            onComplete() {
+              gsap.to('#overlappingDiv', {
+                opacity: 1,
+                duration: 0.4,
+              })
+            }
+          })
           break;
         }
       }
