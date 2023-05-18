@@ -150,7 +150,8 @@ const battle = {
 let speed = 3
 
 function animate() {
-    window.requestAnimationFrame(animate)
+    const animationId = window.requestAnimationFrame(animate)
+    console.log(animationId)
     background.draw()
     boundaries.forEach((boundary) => {
         boundary.draw()
@@ -176,6 +177,7 @@ function animate() {
           && Math.random() < 0.01
         ) {
           console.log("battle zone")
+          window.cancelAnimationFrame(animationId)
           battle.intiated = true
           gsap.to('#overlappingDiv', {
             opacity: 1,
@@ -187,6 +189,7 @@ function animate() {
                 opacity: 1,
                 duration: 0.4,
               })
+              animateBattle()
             }
           })
           break;
@@ -348,3 +351,8 @@ window.addEventListener('keyup', (event) => {
              break
     }
  })
+
+ function animateBattle() {
+  window.requestAnimationFrame(animateBattle);
+  console.log("animating battle")
+ }
