@@ -407,3 +407,16 @@ const emby = new Sprite({
  }
 
 animateBattle()
+ 
+document.querySelectorAll('button').forEach(button => {
+  button.addEventListener('click', (event) => {
+    emby.attack({
+      attack: {
+        name: 'Tackle',
+        damage: 10,
+        type: 'Normal'
+      },
+      recipient: draggle
+    })
+  })
+})
