@@ -1,5 +1,5 @@
 class Sprite {
-    constructor({position, image, frames = {max: 1, hold: 10}, sprites, animate = false}) {
+    constructor({position, image, frames = {max: 1, hold: 10}, sprites, animate = false, isEnemy = false}) {
         this.position = position
         this.image = image
         this.frames = {...frames, val:0, elapsed: 0}
@@ -10,6 +10,8 @@ class Sprite {
         this.animate = animate
         this.sprites = sprites
         this.opacity = 1
+        this.health = 100
+        this.isEnemy = isEnemy
     }
 
     draw() {
@@ -47,14 +49,22 @@ class Sprite {
 
     attack({attack, recipient}) {
         const tl = gsap.timeline()
+        this.health -= attack.damage
+
+        let movementDistance = 20
+        console.log(this.isEnemy)
+        if (this.isEnemy) movementDistance = -20
+        let healthBar = '#enemyHealthBar'
+        if (this.isEnemy) healthBar = '#playerHealthBar'
+
         tl.to(this.position, {
-            x:this.position.x - 20
+            x:this.position.x - movementDistance
         }).to(this.position, {
-            x:this.position.x + 40,
+            x:this.position.x + movementDistance * 2,
             duration: 0.1,
-            onComplete() {
-                gsap.to('#enemyHealthBar', {
-                    width: '50%'
+            onComplete: () => {
+                gsap.to(healthBar, {
+                    width: this.health + '%'
                 })
 
                 gsap.to(recipient.position, {
