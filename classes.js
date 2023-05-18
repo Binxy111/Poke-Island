@@ -47,42 +47,90 @@ class Sprite {
         }
     }
 
-    attack({attack, recipient}) {
-        const tl = gsap.timeline()
-        this.health -= attack.damage
-
-        let movementDistance = 20
-        console.log(this.isEnemy)
-        if (this.isEnemy) movementDistance = -20
+    attack({attack, recipient, renderedSprites}) {
         let healthBar = '#enemyHealthBar'
         if (this.isEnemy) healthBar = '#playerHealthBar'
 
-        tl.to(this.position, {
-            x:this.position.x - movementDistance
-        }).to(this.position, {
-            x:this.position.x + movementDistance * 2,
-            duration: 0.1,
-            onComplete: () => {
-                gsap.to(healthBar, {
-                    width: this.health + '%'
+        this.health -= attack.damage
+
+        switch (attack.name) {
+            case 'Fireball':
+                const fireballImage = new Image()
+                fireballImage.src = './img/fireball.png'
+                const fireball = new Sprite({
+                    position: {
+                        x: this.position.x, 
+                        y: this.position.y
+                    },
+                    image: fireballImage,
+                    frames : {
+                        max: 4,
+                        hold: 5
+                    },
+                    animate: true
                 })
 
-                gsap.to(recipient.position, {
-                    x: recipient.position.x + 10,
-                    yoyo: true,
-                    repeat: 5,
-                    duration: 0.08
+                renderedSprites.push(fireball)
+
+                gsap.to(fireball.position, {
+                    x: recipient.position.x,
+                    y: recipient.position.y,
+                    onComplete: () => {
+                        gsap.to(healthBar, {
+                            width: this.health + '%'
+                        })
+                        gsap.to(recipient.position, {
+                            x: recipient.position.x + 10,
+                            yoyo: true,
+                            repeat: 5,
+                            duration: 0.08
+                        })
+                        gsap.to(recipient, {
+                            opacity: 0,
+                            yoyo: true,
+                            repeat: 5,
+                            duration: 0.08
+                        })
+                        renderedSprites.pop()
+                    }
                 })
-                gsap.to(recipient, {
-                    opacity: 0,
-                    yoyo: true,
-                    repeat: 5,
-                    duration: 0.08
+
+                break;
+            case 'Tackle':
+                const tl = gsap.timeline()
+
+                let movementDistance = 20
+                console.log(this.isEnemy)
+                if (this.isEnemy) movementDistance = -20
+
+                tl.to(this.position, {
+                    x:this.position.x - movementDistance
+                }).to(this.position, {
+                    x:this.position.x + movementDistance * 2,
+                    duration: 0.1,
+                    onComplete: () => {
+                        gsap.to(healthBar, {
+                            width: this.health + '%'
+                        })
+
+                        gsap.to(recipient.position, {
+                            x: recipient.position.x + 10,
+                            yoyo: true,
+                            repeat: 5,
+                            duration: 0.08
+                        })
+                        gsap.to(recipient, {
+                            opacity: 0,
+                            yoyo: true,
+                            repeat: 5,
+                            duration: 0.08
+                        })
+                    }
+                }).to(this.position, {
+                    x:this.position.x
                 })
-            }
-        }).to(this.position, {
-            x:this.position.x
-        })
+                break;
+        }
     }
 }
 
