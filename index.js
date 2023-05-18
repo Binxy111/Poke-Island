@@ -188,8 +188,14 @@ function animate() {
               gsap.to('#overlappingDiv', {
                 opacity: 1,
                 duration: 0.4,
+                onComplete() {
+                  animateBattle()
+                  gsap.to('#overlappingDiv', {
+                    opacity: 0,
+                    duration: 0.4
+                  })
+                }
               })
-              animateBattle()
             }
           })
           break;
@@ -352,7 +358,17 @@ window.addEventListener('keyup', (event) => {
     }
  })
 
+const battleBackgroundImage = new Image()
+battleBackgroundImage.src = './img/battleBackground.png'
+const battleBackground = new Sprite({
+  position: {
+    x: 0,
+    y: 0
+  },
+  image: battleBackgroundImage
+})
+
  function animateBattle() {
   window.requestAnimationFrame(animateBattle);
-  console.log("animating battle")
+  battleBackground.draw()
  }
