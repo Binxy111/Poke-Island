@@ -148,7 +148,7 @@ const battle = {
 }
   
 
-let speed = 3
+let speed = 6
 
 function animate() {
     const animationId = window.requestAnimationFrame(animate)
@@ -190,6 +190,7 @@ function animate() {
                 opacity: 1,
                 duration: 0.4,
                 onComplete() {
+                  initBattle()
                   animateBattle()
                   gsap.to('#overlappingDiv', {
                     opacity: 0,

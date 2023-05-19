@@ -8,38 +8,30 @@ const battleBackground = new Sprite({
   image: battleBackgroundImage
 })
 
-const draggle = new Monster(monsters.Draggle)
+let draggle
+let emby
+let renderedSprites
+let queue 
 
-const emby = new Monster(monsters.Emby)
-
-const renderedSprites = [draggle, emby]
-
-emby.attacks.forEach((attack) => {
-  const button = document.createElement('button')
-  button.innerHTML = attack.name
-  document.querySelector("#attacksBox").append(button)
-})
-
-let battleAnimationId
+function initBattle(){
+  document.querySelector("#userInterface").style.display = 'block'
+  document.querySelector("#dialogueBox").style.display = 'none'
+  document.querySelector("#enemyHealthBar").style.width = '100%'
+  document.querySelector("#playerHealthBar").style.width = '100%' 
+  document.querySelector("#attacksBox").replaceChildren()
 
 
-function animateBattle() {
-  battleAnimationId = window.requestAnimationFrame(animateBattle);
-  battleBackground.draw()
-  draggle.draw()
-  emby.draw()
-
-  renderedSprites.forEach((sprite) => {
-    sprite.draw()
+  draggle = new Monster(monsters.Draggle)
+  emby = new Monster(monsters.Emby)
+  renderedSprites = [draggle, emby]
+  queue = []
+  emby.attacks.forEach((attack) => {
+    const button = document.createElement('button')
+    button.innerHTML = attack.name
+    document.querySelector("#attacksBox").append(button)
   })
- }
 
-
-animateBattle()
-
-const queue = []
-
-document.querySelectorAll('button').forEach(button => {
+  document.querySelectorAll('button').forEach(button => {
   button.addEventListener('click', (event) => {
     const selectedAttack = attacks[event.currentTarget.innerHTML]
     console.log(selectedAttack)
@@ -92,6 +84,24 @@ document.querySelectorAll('button').forEach(button => {
       document.querySelector('#attackType').style.color = selectedAttack.color
   })
 })
+}
+
+let battleAnimationId
+
+
+function animateBattle() {
+  battleAnimationId = window.requestAnimationFrame(animateBattle);
+  battleBackground.draw()
+  draggle.draw()
+  emby.draw()
+
+  renderedSprites.forEach((sprite) => {
+    sprite.draw()
+  })
+ }
+
+initBattle()
+animateBattle()
 
 document.querySelector('#dialogueBox').addEventListener('click', (event) => {
   if (queue.length > 0) {
