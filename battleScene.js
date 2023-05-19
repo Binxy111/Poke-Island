@@ -8,14 +8,18 @@ const battleBackground = new Sprite({
   image: battleBackgroundImage
 })
 
-const draggle = new Sprite(monsters.Draggle)
+const draggle = new Monster(monsters.Draggle)
 
-const emby = new Sprite(monsters.Emby)
+const emby = new Monster(monsters.Emby)
 
 const renderedSprites = [draggle, emby]
-const button = document.createElement('button')
-button.innerHTML = 'Fireball'
-document.querySelector("#attacksBox").append(button)
+
+emby.attacks.forEach((attack) => {
+  const button = document.createElement('button')
+  button.innerHTML = attack.name
+  document.querySelector("#attacksBox").append(button)
+})
+
 
 function animateBattle() {
   window.requestAnimationFrame(animateBattle);
