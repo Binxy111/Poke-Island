@@ -62,6 +62,7 @@ class Sprite {
     attack({attack, recipient, renderedSprites}) {
         document.querySelector('#dialogueBox').style.display = 'block'
         document.querySelector('#dialogueBox').innerHTML = this.name + ' used ' + attack.name + '!'
+        let healthBar = '#enemyHealthBar'
         if (this.isEnemy) healthBar = '#playerHealthBar'
         let rotation = 1
         if (this.isEnemy) rotation = -2.2
