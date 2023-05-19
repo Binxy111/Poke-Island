@@ -1,10 +1,7 @@
 const canvas = document.querySelector('canvas')
 const context = canvas.getContext('2d')
-
 canvas.width = 1024
 canvas.height = 576
-
-console.log(collisions)
 
 const collisionsMap = []
 for (let i = 0; i < collisions.length; i += 70) {
@@ -54,11 +51,6 @@ battleZonesMap.forEach((row, i) => {
     }
   )
 })
-
-console.log(battleZones)
-
-
-console.log(collisionsMap)
 
 canvas.fillStyle = 'white'
 
@@ -152,7 +144,6 @@ let speed = 6
 
 function animate() {
     const animationId = window.requestAnimationFrame(animate)
-    console.log(animationId)
     background.draw()
     boundaries.forEach((boundary) => {
         boundary.draw()
@@ -177,8 +168,10 @@ function animate() {
           }) && overlappingArea > (player.width * player.height) / 2
           && Math.random() < 0.01
         ) {
-          console.log("battle zone")
           window.cancelAnimationFrame(animationId)
+          audio.Map.stop()
+          audio.initBattle.play()
+          audio.battle.play()
           battle.intiated = true
           gsap.to('#overlappingDiv', {
             opacity: 1,
@@ -358,4 +351,12 @@ window.addEventListener('keyup', (event) => {
              keys.d.pressed = false
              break
     }
+ })
+
+ let clicked = false
+ addEventListener('click', () => {
+  if (!clicked) {
+    audio.Map.play()
+    clicked = true
+  }
  })

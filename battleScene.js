@@ -34,7 +34,6 @@ function initBattle(){
   document.querySelectorAll('button').forEach(button => {
   button.addEventListener('click', (event) => {
     const selectedAttack = attacks[event.currentTarget.innerHTML]
-    console.log(selectedAttack)
     emby.attack({
       attack: selectedAttack,
       recipient: draggle,
@@ -58,6 +57,7 @@ function initBattle(){
             })
 
             battle.intiated = false
+            audio.Map.play()
           }
         })
       })
@@ -90,6 +90,7 @@ function initBattle(){
               })
 
               battle.intiated = false
+              audio.Map.play()
             }
           })
         })
@@ -119,8 +120,7 @@ function animateBattle() {
   })
  }
 
-initBattle()
-animateBattle()
+ animate()
 
 document.querySelector('#dialogueBox').addEventListener('click', (event) => {
   if (queue.length > 0) {
