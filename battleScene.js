@@ -57,6 +57,12 @@ document.querySelectorAll('button').forEach(button => {
       })
     })
   })
+
+  button.addEventListener('mouseenter', (event) => {
+      const selectedAttack = attacks[event.currentTarget.innerHTML]
+      document.querySelector('#attackType').innerHTML = selectedAttack.type
+      document.querySelector('#attackType').style.color = selectedAttack.color
+  })
 })
 
 document.querySelector('#dialogueBox').addEventListener('click', (event) => {
