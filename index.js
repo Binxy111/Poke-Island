@@ -382,7 +382,8 @@ const draggle = new Sprite({
     hold: 30
   },
   animate: true,
-  isEnemy: true
+  isEnemy: true,
+  name: 'Draggle'
 })
 
 const embyImage = new Image()
@@ -397,10 +398,11 @@ const emby = new Sprite({
     max: 4,
     hold: 30
   },
-  animate: true
+  animate: true,
+  name: 'Emby'
 })
 
-const renderedSprites = []
+const renderedSprites = [draggle, emby]
 function animateBattle() {
   window.requestAnimationFrame(animateBattle);
   battleBackground.draw()

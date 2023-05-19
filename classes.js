@@ -1,5 +1,5 @@
 class Sprite {
-    constructor({position, image, frames = {max: 1, hold: 10}, sprites, animate = false, isEnemy = false}) {
+    constructor({position, image, frames = {max: 1, hold: 10}, sprites, animate = false, isEnemy = false, rotation = 0, name}) {
         this.position = position
         this.image = image
         this.frames = {...frames, val:0, elapsed: 0}
@@ -12,10 +12,22 @@ class Sprite {
         this.opacity = 1
         this.health = 100
         this.isEnemy = isEnemy
+        this.rotation = rotation
+        this.rotation = rotation
+        this.name = name
     }
 
     draw() {
         context.save()
+        context.translate(
+            this.position.x + this.width / 2,
+            this.position.y + this.height / 2
+        )
+        context.rotate(this.rotation)
+        context.translate(
+            -this.position.x - this.width / 2,
+            -this.position.y - this.height / 2
+        )
         context.globalAlpha = this.opacity
         context.drawImage(
             this.image,
@@ -48,9 +60,11 @@ class Sprite {
     }
 
     attack({attack, recipient, renderedSprites}) {
-        let healthBar = '#enemyHealthBar'
+        document.querySelector('#dialogueBox').style.display = 'block'
+        document.querySelector('#dialogueBox').innerHTML = this.name + ' used ' + attack.name + '!'
         if (this.isEnemy) healthBar = '#playerHealthBar'
-
+        let rotation = 1
+        if (this.isEnemy) rotation = -2.2
         this.health -= attack.damage
 
         switch (attack.name) {
@@ -67,10 +81,11 @@ class Sprite {
                         max: 4,
                         hold: 5
                     },
-                    animate: true
+                    animate: true,
+                    rotation
                 })
 
-                renderedSprites.push(fireball)
+                renderedSprites.splice(1, 0, fireball)
 
                 gsap.to(fireball.position, {
                     x: recipient.position.x,
@@ -91,7 +106,7 @@ class Sprite {
                             repeat: 5,
                             duration: 0.08
                         })
-                        renderedSprites.pop()
+                        renderedSprites.splice(1, 1)
                     }
                 })
 
