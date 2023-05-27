@@ -1,4 +1,9 @@
-# Poke-Island
+# Poke Island
+[![JavaScipt](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white)]()
+[![HTML](https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=HTML5&logoColor=white)]()
+[![CSS](https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=CSS3&logoColor=white)]()
+
+## 🏝️ What is Poke Island?
 Poke-Island invites players to embark on an extraordinary gaming adventure, immersing themselves in a captivating project inspired by the world of Pokemon. This project introduces a meticulously crafted island map, brought to life through the use of the Tile Map Editor, offering an immersive and unforgettable experience.
 
 Players will find themselves transported to a visually stunning game world, immersed in the enchantment of an island brimming with captivating landscapes. Through the intuitive controls of the W, A, S, and D keys, they can freely explore the diverse terrains that await them. Carefully integrated boundaries and collision systems ensure a seamless and engaging roaming experience, enabling players to navigate the island with freedom and flexibility.
