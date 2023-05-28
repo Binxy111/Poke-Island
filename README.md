@@ -53,3 +53,7 @@ To further enhance the immersive nature of Poke-Island, I integrated music and s
 Throughout the development process, I followed a carefully curated sequence of steps. From map creation to player movement, battle mechanics, and audio integration, each aspect was meticulously crafted to create a cohesive and unforgettable gaming experience.
 
 Poke-Island is the culmination of passion, dedication, and the seamless integration of various tools and techniques. It invites players to embark on an extraordinary journey filled with adventure, discovery, and the magic of the Pokemon world.
+
+## ➕ What Are The Next Steps for Poke Island?
+
+The next steps for Poke-Island would involve expanding its features and gameplay elements. Players would be able to capture defeated Pokemon, adding them to their collection and utilizing them in battles. The introduction of other characters would allow for meaningful interactions through dialogue windows, enhancing the storytelling aspect of the game. Exploring buildings across the map would provide new opportunities and challenges. Additionally, the implementation of multiple sprites with a wider range of attack options would add depth and strategic choices to battles, further immersing players in the captivating world of Poke-Island.
