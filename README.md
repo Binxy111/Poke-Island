@@ -21,7 +21,7 @@ The climactic conclusion of each battle unveils the fate of the battling sprites
 
 Poke-Island is a passion project that meticulously combines expert map design, exhilarating battles, and immersive features to offer players an unforgettable gaming experience. With its enchanting visuals, finely crafted gameplay mechanics, and carefully curated audio and sound effects, Poke-Island invites players to embark on a mesmerizing journey where adventure and discovery intertwine. Immerse yourself in this captivating project and allow the magic of Poke-Island to transport you to a world like no other.
 
-## Running the Website Locally
+## 🏃‍♂️ Running the Website Locally
 
 Using the terminal:
 
