@@ -50,6 +50,6 @@ The battle system itself required strategic thinking and quick decision-making. 
 
 To further enhance the immersive nature of Poke-Island, I integrated music and sound effects using the howler.js library. This added another layer of depth to the game, immersing players in the enchanting world through captivating audio cues.
 
-Throughout the development process, I followed a carefully curated sequence of steps, as documented in the timestamps you provided. From map creation to player movement, battle mechanics, and audio integration, each aspect was meticulously crafted to create a cohesive and unforgettable gaming experience.
+Throughout the development process, I followed a carefully curated sequence of steps. From map creation to player movement, battle mechanics, and audio integration, each aspect was meticulously crafted to create a cohesive and unforgettable gaming experience.
 
 Poke-Island is the culmination of passion, dedication, and the seamless integration of various tools and techniques. It invites players to embark on an extraordinary journey filled with adventure, discovery, and the magic of the Pokemon world.
