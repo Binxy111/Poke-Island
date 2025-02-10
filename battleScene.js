@@ -1,5 +1,5 @@
 const battleBackgroundImage = new Image()
-battleBackgroundImage.src = './img/battleBackground.png'
+battleBackgroundImage.src = 'https://www.deviantart.com/aveontrainer/art/battlebgRoute-829526311'
 const battleBackground = new Sprite({
   position: {
     x: 0,
